@@ -1,6 +1,8 @@
-from model_trainer.train import train
-from model_trainer.test import test
+import utils
+from core.model_tester import test
+from core.model_trainer import train
 
 if __name__ == "__main__":
-   train()
-   test()
+    device = utils.get_device()
+    train(device)
+    test(device)
