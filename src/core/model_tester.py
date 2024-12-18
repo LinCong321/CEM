@@ -10,6 +10,8 @@ from model.compression_dataset import CompressionDataset
 
 def test(device):
     compression_model = CompressionModel().to(device)
+    criterion = ContrastiveLoss().to(device)
+
     compression_model.load_state_dict(torch.load('./compression_model/compression_model.pth', map_location=device))
     print("Model loaded from './compression_model/compression_model.pth'")
 
@@ -17,23 +19,22 @@ def test(device):
     dataset = CompressionDataset(files, device)
     dataloader = DataLoader(dataset, batch_size=32, shuffle=False)
     
-    criterion = ContrastiveLoss().to(device)
-
     test_accuracy = []
     test_losses = []
 
     with torch.no_grad():
         for batch in tqdm(dataloader, desc='Test Batch'):
+            # 将数据迁移到设备
             file_data, title_embeddings = batch
             file_data = file_data.to(device)
             title_embeddings = title_embeddings.to(device)
+            # 计算准确度和损失
             compression_embeddings = compression_model(file_data)
-
             predictions = utils.get_sim(title_embeddings, compression_embeddings)
             accuracy = accuracy_score([1 if prediction > 0.8 else 0 for prediction in predictions],
                                       [1] * len(predictions))
             loss = criterion(title_embeddings, compression_embeddings)
-
+            # 存储结果
             test_accuracy.append(accuracy)
             test_losses.append(loss.mean().item())
 

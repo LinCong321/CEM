@@ -15,7 +15,7 @@ def train(device):
 
     files = utils.get_files()[:1000]
     dataset = CompressionDataset(files[:1000], device)
-    dataloader = DataLoader(dataset, batch_size=256, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
     for epoch in tqdm(range(20), desc = 'Epoch'):
         for batch in tqdm(dataloader, desc='Batch'):
