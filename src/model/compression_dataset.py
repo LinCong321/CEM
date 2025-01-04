@@ -1,4 +1,4 @@
-import utils
+import helpers.utils as utils
 from torch.utils.data import Dataset
 from helpers.embedding_extractor import EmbeddingExtractor
 

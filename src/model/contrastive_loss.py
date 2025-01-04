@@ -1,4 +1,4 @@
-import utils
+import helpers.utils as utils
 import torch.nn as nn
 
 class ContrastiveLoss(nn.Module):

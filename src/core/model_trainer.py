@@ -1,9 +1,10 @@
-import utils
 import torch
 import torch.optim as optim
 
 from tqdm import tqdm
 from torch.utils.data import DataLoader
+
+from helpers import utils
 from model.contrastive_loss import ContrastiveLoss
 from model.compression_model import CompressionModel
 from model.compression_dataset import CompressionDataset

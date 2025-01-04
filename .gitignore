@@ -1,4 +1,5 @@
 __pycache__/
-output/
+dataset/
+e5/
+model/
 parquet/
-bert-base-chinese/

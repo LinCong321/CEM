@@ -9,7 +9,7 @@ class EmbeddingExtractor:
         self.model.eval()
 
     def get_embedding(self, text):
-        inputs = self.tokenizer(texts, return_tensors='pt').to(self.device)
+        inputs = self.tokenizer(text, return_tensors='pt').to(self.device)
         with torch.no_grad():
             outputs = self.model(**inputs)
         return outputs.last_hidden_state[:, 0, :].squeeze(0)
